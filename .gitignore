@@ -1,0 +1,35 @@
+# Ignore the virtual environment folder
+.venv/
+
+# Ignore compiled Python files
+*.pyc
+
+# Ignore the __pycache__ folder
+__pycache__/
+
+# Ignore any local development settings
+.env
+
+# Ignore any logs or temporary files
+*.log
+*.tmp
+
+# Ignore any generated documentation
+docs/
+
+# Ignore any build or distribution files
+build/
+dist/
+
+# Ignore any IDE or editor specific files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.pydevproject
+
+# Ignore any package dependencies
+# Add any additional package managers or tools here
+pip-lock.txt
+pipenv-lock.txt
+poetry.lock
