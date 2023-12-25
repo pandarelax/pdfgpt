@@ -1,3 +1,4 @@
+import re
 import streamlit as st
 from dotenv import load_dotenv
 from PyPDF2 import PdfReader
@@ -32,21 +33,30 @@ def get_vector_store(text_chunks):
     vector_store = FAISS.from_texts(texts=text_chunks, embedding=embeddings)
     return vector_store
 
-def create_conversation_chain(vector_store):
+def create_conversation_chain(vector_store) -> ConversationalRetrievalChain:
     llm: ChatOpenAI = ChatOpenAI()
     memory: ConversationBufferMemory = ConversationBufferMemory(
         memory_key="chat_history",
         return_messages=True,
     )
-    conversation_chain: ConversationalRetrievalChain = ConversationalRetrievalChain.from_llm()
+    conversation_chain: ConversationalRetrievalChain = ConversationalRetrievalChain.from_llm(
+        llm=llm,
+        retriever=vector_store.as_retriever(),
+        memory=memory,
+    )
+    return conversation_chain
     
 
 def main() -> None:
     load_dotenv()
     
     st.set_page_config(page_title="PdfGPT App", layout="wide")
+    
+    if "conversation" not in st.session_state:
+        st.session_state.conversation = None
+    
     st.header("Chat With Your PDFs :books:")
-    st.text_input("Ask a question about your PDFs")
+    st.text_input("Ask a question about your PDFs") 
     
     with st.sidebar:
         st.subheader("Your Documents")
@@ -64,7 +74,7 @@ def main() -> None:
                     vector_store = get_vector_store(text_chunks)
                     
                     # Create conversation chain
-                    conversation = create_conversation_chain(vector_store)
+                    st.session_state.conversation = create_conversation_chain(vector_store)
         
 if __name__ == "__main__":
     main()
