@@ -1,4 +1,3 @@
-import re
 import streamlit as st
 from dotenv import load_dotenv
 from PyPDF2 import PdfReader
@@ -8,6 +7,7 @@ from langchain.vectorstores import FAISS
 from langchain.memory import ConversationBufferMemory
 from langchain.chains import ConversationalRetrievalChain
 from langchain.chat_models import ChatOpenAI
+
 
 def get_pdf_text(pdfs) -> str:
     text: str = ""
