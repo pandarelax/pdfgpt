@@ -32,23 +32,23 @@ def get_text_chunks(text) -> list[str]:
 
 def get_vector_store(text_chunks):
     # Production embeddings
-    embeddings: OpenAIEmbeddings = OpenAIEmbeddings()
+    # embeddings: OpenAIEmbeddings = OpenAIEmbeddings()
     
     # Local embeddings for testing
-    # embeddings: HuggingFaceInstructEmbeddings = HuggingFaceInstructEmbeddings(model_name="hkunlp/inctructor-xl")  # noqa: F811
+    embeddings: HuggingFaceInstructEmbeddings = HuggingFaceInstructEmbeddings(model_name="hkunlp/inctructor-xl")
     
     vector_store = FAISS.from_texts(texts=text_chunks, embedding=embeddings)
     return vector_store
 
 def create_conversation_chain(vector_store) -> ConversationalRetrievalChain:
     # OpenAI LLM
-    llm: ChatOpenAI = ChatOpenAI()
+    # llm: ChatOpenAI = ChatOpenAI()
     
     # HuggingFace LLM
-    # llm = HuggingFaceHub(repo_id="google/flan-t5-xxl", model_kwargs={"temperature":0.5, "max_length":512})
+    llm = HuggingFaceHub(repo_id="google/flan-t5-xxl", model_kwargs={"temperature":0.5, "max_length":512})
     
     memory: ConversationBufferMemory = ConversationBufferMemory(
-        memory_key="chat_history",
+        memory_key='chat_history',
         return_messages=True,
     )
     conversation_chain: ConversationalRetrievalChain = ConversationalRetrievalChain.from_llm(
@@ -58,7 +58,7 @@ def create_conversation_chain(vector_store) -> ConversationalRetrievalChain:
     )
     return conversation_chain
 
-def handle_user_input(user_question: str):
+def handle_user_input(user_question: str) -> None:
     response = st.session_state.conversation({'question': user_question})
     st.session_state.chat_history = response['chat_history']
     
@@ -74,11 +74,11 @@ def main() -> None:
     st.set_page_config(page_title="PdfGPT App", layout="wide")
     st.write(css, unsafe_allow_html=True)
     
-    if "conversation" not in st.session_state:
+    if 'conversation' not in st.session_state:
         st.session_state.conversation = None
-    if "chat_history" not in st.session_state:
+    if 'chat_history' not in st.session_state:
         st.session_state.chat_history = None
-    
+        
     st.header("Chat With Your PDFs :books:")
     user_question: str = st.text_input("Ask a question about your PDFs")
     if user_question:
