@@ -12,7 +12,7 @@ This app helps you to chat with your own customized AI to ask questions about th
    cd <destination_folder>
 3. **Install requirements**
    ```bash
-   python install -r requeriements.txt
+   python install -r requirements.txt
    ```
 4. **Run the project**
    ```bash
