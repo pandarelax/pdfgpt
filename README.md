@@ -8,7 +8,7 @@ This app helps you to chat with your own customized AI to ask questions about th
    ```bash
    git clone https://github.com/pandarelax/pdfgpt.git <destination_folder>
    ```
-2. **Locate to cloned projects path**
+2. **Set your current directory as the cloned projects location**
    ```bash
    cd <destination_folder>
 3. **Install requirements**
