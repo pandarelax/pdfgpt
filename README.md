@@ -16,10 +16,10 @@ This app helps you to chat with your own customized AI to ask questions about th
    python install -r requirements.txt
    ```
 4. **Set Environment Variables**
-5. ```
-   Update the `.env.example==` file with your own tokens and change the file name to `.env`
    ```
-6. **Run the project**
+   Update the `.env.example` file with your own tokens and change the file name to `.env`
+   ```
+5. **Run the project**
    ```bash
    streamlit run main.py
    ```
